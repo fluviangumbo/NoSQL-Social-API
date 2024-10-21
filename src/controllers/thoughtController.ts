@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Thought from '../models/Thought.js';
+import Thought from '../models/Thought.js'; // Reaction?
 
 export const getThoughts = async (_req: Request, res: Response) => {
     try {
@@ -32,7 +32,7 @@ export const getThoughtById = async (req: Request, res: Response) => {
 export const updateThought = async (req: Request, res: Response) => {
     try {
         const { thoughtId } = req.params;
-        const newThought = await Thought.findByIdandUpdate(thoughtId); // Finish, see the websearch for docs on function
+        const newThought = await Thought.findByIdAndUpdate(thoughtId, req.body, { new: true });
 
         res.status(200).json(newThought);
     } catch (err) {
@@ -40,14 +40,69 @@ export const updateThought = async (req: Request, res: Response) => {
     }
 };
 
-export const deleteThought = async ()
+export const deleteThought = async (req: Request, res: Response) => {
+    try {
+        const { thoughtId } = req.params;
+        await Thought.findByIdAndDelete(thoughtId);
 
-export const getReactions = async ()
+        res.status(200).json('Successfully deleted thought.');
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
 
-export const createReaction = async ()
+export const getReactions = async (req: Request, res: Response) => {
+    try {
+        const { thoughtId } = req.params;
+        const thought = await Thought.findById(thoughtId);
 
-export const getReactionById = async ()
+        res.status(200).json(thought?.reactions);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
 
-export const updateReaction = async ()
+export const createReaction = async (req: Request, res: Response) => {
+    try {
+        const { thoughtId } = req.params;
+        const thought = await Thought.findByIdAndUpdate(
+            thoughtId,
+            {
+                $addToSet: { reactions: req.body }
+            },
+            { runValidators: true, new: true }, //need vlidators?
+        );
 
-export const deleteReaction = async ()
+        res.status(200).json(thought);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+export const getReactionById = async (req: Request, res: Response) => {
+    try {
+        const { thoughtId, reactionId } = req.params;
+
+        const thought = await Thought.findById(thoughtId);
+        const reaction = await thought?.reactions.find() // not sure if I am doing this right
+        //FINISH
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+export const updateReaction = async (req: Request, res: Response) => {
+    try {
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+export const deleteReaction = async (req: Request, res: Response) => {
+    try {
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};

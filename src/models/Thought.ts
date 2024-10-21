@@ -29,10 +29,10 @@ const reactionSchema = new Schema<IReaction>(
             type: String,
             required: true,
         },
-        createdAt: {
+        createdAt: { // had to use the getters with an 'any', check on it
             type: Date,
             default: Date.now,
-            get: (value: Date) => value.toLocaleString('en-us'),
+            get: (value: any) => value.toLocaleString('en-us'),
         },
     },
     {
@@ -53,7 +53,7 @@ const thoughtSchema = new Schema<IThought>(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (value: Date) => value.toLocaleString('en-us'),
+            get: (value: any) => value.toLocaleString('en-us'),
         },
         username: {
             type: String,
@@ -62,8 +62,10 @@ const thoughtSchema = new Schema<IThought>(
         reactions: [reactionSchema],
     },
     {
-        getters: true,
-        virtuals: true,
+        toJSON: {
+            getters: true,
+            virtuals: true,
+        },
     },
 );
 

@@ -25,6 +25,6 @@ router.route('/:thoughtId').get(getThoughtById).put(updateThought).delete(delete
 router.route('/:thoughtId/reactions').get(getReactions).post(createReaction);
 
 // /api/thoughts/:thoughtId/reactions/:reactionId
-router.route('/:thoughtd/reactions/:reactionId').get(getReactionById).put(updateReaction).delete(deleteReaction);
+router.route('/:thoughtd/reactions/:reactionId').get(getReactionById).put(updateReaction).delete(deleteReaction); // readme has no /:reactionId
 
 export { router as thoughtRouter } ;
