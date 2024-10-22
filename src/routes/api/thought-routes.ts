@@ -10,8 +10,6 @@ import {
     deleteThought,
     getReactions,
     createReaction,
-    getReactionById,
-    updateReaction,
     deleteReaction,
 } from '../../controllers/thoughtController.js';
 
@@ -22,9 +20,6 @@ router.route('/').get(getThoughts).post(createThought);
 router.route('/:thoughtId').get(getThoughtById).put(updateThought).delete(deleteThought);
 
 // /api/thoughts/:thoughtId/reactions
-router.route('/:thoughtId/reactions').get(getReactions).post(createReaction);
-
-// /api/thoughts/:thoughtId/reactions/:reactionId
-router.route('/:thoughtd/reactions/:reactionId').get(getReactionById).put(updateReaction).delete(deleteReaction); // readme has no /:reactionId
+router.route('/:thoughtId/reactions').get(getReactions).post(createReaction).delete(deleteReaction);
 
 export { router as thoughtRouter } ;

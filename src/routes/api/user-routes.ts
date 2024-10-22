@@ -10,7 +10,6 @@ import {
     deleteUser,
     getFriends,
     addFriend,
-    getFriendById,
     deleteFriend,
 } from '../../controllers/userController.js';
 
@@ -21,9 +20,6 @@ router.route('/').get(getUsers).post(createUser);
 router.route('/:userId').get(getUserById).put(updateUser).delete(deleteUser);
 
 // /api/users/:userId/friends
-router.route('/:userId/friends').get(getFriends).post(addFriend); // does this have to be on the /:friendId route?
-
-// /api/users/:userId/friends/:friendId
-router.route('/api/users/:userId/friends/:friendId').get(getFriendById).delete(deleteFriend);
+router.route('/:userId/friends/:friendId').get(getFriends).post(addFriend).delete(deleteFriend);
 
 export { router as userRouter } ;

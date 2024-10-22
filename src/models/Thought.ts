@@ -39,6 +39,7 @@ const reactionSchema = new Schema<IReaction>(
         toJSON: {
             getters: true,
         },
+        _id: false,
     },
 );
 
@@ -63,7 +64,6 @@ const thoughtSchema = new Schema<IThought>(
     },
     {
         toJSON: {
-            getters: true,
             virtuals: true,
         },
     },
